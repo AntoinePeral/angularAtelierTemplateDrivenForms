@@ -14,7 +14,17 @@
             <label for="email" class="label-information">Veuillez rentrer votre email</label>
           }
           <div class="input-wrapper">
-            <input type="text" name="email" #emailRef="ngModel" [(ngModel)]="email" placeholder="Email" required email minlength="3" (click)="showLabelEmail()">
+            <input 
+              type="text" 
+              name="email" 
+              #emailRef="ngModel" 
+              [(ngModel)]="email" 
+              placeholder="Email" 
+              required 
+              email 
+              minlength="3" 
+              (click)="showLabelEmail()"
+              >
             <div class="rigth-div">
               <!-- alert -->
                @if(emailRef.errors && emailRef.touched && emailRef.errors['required'] ){
@@ -26,14 +36,16 @@
                }
             </div>
           </div>
-          @if(emailRef.errors){
-            @if(emailRef.errors['required'] && emailRef.touched){
-              <!-- Email doit être renseigné -->
-              <span class="error-message">L'email doit être renseigné</span>
-            }
-            @if(emailRef.errors['email']){
-              <span class="error-message">Le format de l'email n'est pas correct</span>
-            }
+          @if(emailRef.errors){ 
+            <div>
+              @if(emailRef.errors['required'] && emailRef.touched){
+                <!-- Email doit être renseigné -->
+                <span class="error-message">L'email doit être renseigné</span>
+              }
+              @if(emailRef.errors['email']){
+                <span class="error-message">Le format de l'email n'est pas correct</span>
+              }
+            </div>
           }
         </div>
         <div class="password-group">
@@ -50,7 +62,16 @@
                    <img src="icons/oeil.png" alt="hidePassword" (click)="toggleShowPassword()">
                  }
               </div>
-              <input type="password" name="password" #passwordRef="ngModel" [(ngModel)]="password" placeholder="Mot de passe" required minlength="8" (click)="showLabelPassword()">
+              <input 
+                [type]="!showPassword ? 'password'  : 'text'" 
+                name="password" 
+                #passwordRef="ngModel" 
+                [(ngModel)]="password" 
+                placeholder="Mot de passe" 
+                required 
+                minlength="8" 
+                (click)="showLabelPassword()"
+                >
               <div class="rigth-div">
                 <!-- alert password -->
                  @if(passwordRef.errors && passwordRef.touched && passwordRef.errors['required']){
@@ -62,14 +83,15 @@
                 }
               </div>
             </div>
-            
-            @if(passwordRef.errors && passwordRef.errors['required'] && passwordRef.touched){
-              <!-- MDP doit être renseigne -->
-              <span class="error-message">Un mot de passe doit être renseigné</span>
-            }
-            @if(passwordRef.errors && passwordRef.errors['minlength']){
-                <span class="error-message">Votre password doit faire au moins 8 caractères</span>
-            }
+            <div>
+                @if(passwordRef.errors && passwordRef.errors['required'] && passwordRef.touched){
+                  <!-- MDP doit être renseigne -->
+                  <span class="error-message">Un mot de passe doit être renseigné</span>
+                }
+                @if(passwordRef.errors && passwordRef.errors['minlength']){
+                    <span class="error-message">Votre password doit faire au moins 8 caractères</span>
+                }
+            </div>
    
         </div>
         <div class="stay-logged-section"></div>

@@ -23,8 +23,7 @@ export class LoginFormComponent {
   }
 
   toggleShowPassword(){
-    this.showPassword= !this.showPassword;
-    
+    this.showPassword= !this.showPassword;    
   }
 
   showLabelPassword(){

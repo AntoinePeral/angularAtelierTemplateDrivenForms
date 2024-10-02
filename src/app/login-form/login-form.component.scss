@@ -74,6 +74,11 @@ input[type="text"], input[type="password"] {
   border: none;
 }
 
+input:focus {
+  outline: none; /* Supprime le contour par défaut */
+  border: none;  /* Supprime la bordure */
+}
+
 .left-div, .rigth-div{
   display: flex;
   justify-content: center;
