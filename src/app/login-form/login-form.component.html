@@ -1,0 +1,102 @@
+
+<div class="fullForm">
+  <div class="login-title">
+    <h1>Je m'identifie</h1>
+  </div>
+  <div class="login-subtitle">
+    <p>Pour accéder à mon <a href="">Espace client</a></p>
+  </div>
+  <div class="login-form">
+    <form class="form" #myForm="ngForm" (ngSubmit)="myForm.valid && onSubmit()">
+      <fieldset>
+        <div class="email-group">
+          @if(labelEmail){
+            <label for="email" class="label-information">Veuillez rentrer votre email</label>
+          }
+          <div class="input-wrapper">
+            <input type="text" name="email" #emailRef="ngModel" [(ngModel)]="email" placeholder="Email" required email minlength="3" (click)="showLabelEmail()">
+            <div class="rigth-div">
+              <!-- alert -->
+               @if(emailRef.errors && emailRef.touched && emailRef.errors['required'] ){
+                 <img src="icons/bouton-supprimer.png" alt="">
+               } 
+              <!-- clear email -->
+               @if(emailRef.dirty && email.length>0){
+                 <img src="icons/retour-arriere.png" alt="clearbtn" (click)="clearInputEmail()">
+               }
+            </div>
+          </div>
+          @if(emailRef.errors){
+            @if(emailRef.errors['required'] && emailRef.touched){
+              <!-- Email doit être renseigné -->
+              <span class="error-message">L'email doit être renseigné</span>
+            }
+            @if(emailRef.errors['email']){
+              <span class="error-message">Le format de l'email n'est pas correct</span>
+            }
+          }
+        </div>
+        <div class="password-group">
+            @if(labelPassword){
+              <label for="password" class="label-information">Veuillez rentrer votre Mot de passe</label>
+            }
+            <div class="input-wrapper" [ngClass]="passwordRef.errors && passwordRef.touched ? 'error-input' : 'input'">
+              <div class="left-div">
+                <!-- show password -->
+                 @if(!showPassword){
+                   <img src="icons/cacher.png" alt="showPassword" (click)="toggleShowPassword()">
+                 } @else{
+                   <!-- hide password -->
+                   <img src="icons/oeil.png" alt="hidePassword" (click)="toggleShowPassword()">
+                 }
+              </div>
+              <input type="password" name="password" #passwordRef="ngModel" [(ngModel)]="password" placeholder="Mot de passe" required minlength="8" (click)="showLabelPassword()">
+              <div class="rigth-div">
+                <!-- alert password -->
+                 @if(passwordRef.errors && passwordRef.touched && passwordRef.errors['required']){
+                   <img src="icons/bouton-supprimer.png" alt="error-icon">
+                 }
+                <!-- clear password -->
+                @if(passwordRef.dirty && password.length>0){
+                <img src="icons/retour-arriere.png" alt="clear-icon" (click)="clearInputPassword()">
+                }
+              </div>
+            </div>
+            
+            @if(passwordRef.errors && passwordRef.errors['required'] && passwordRef.touched){
+              <!-- MDP doit être renseigne -->
+              <span class="error-message">Un mot de passe doit être renseigné</span>
+            }
+            @if(passwordRef.errors && passwordRef.errors['minlength']){
+                <span class="error-message">Votre password doit faire au moins 8 caractères</span>
+            }
+   
+        </div>
+        <div class="stay-logged-section"></div>
+        <div class="login-button-container">
+          <button type="submit" [disabled]="myForm.invalid">Valider</button>
+        </div>
+        <div class="lost-password-container"></div>
+      </fieldset>
+    </form>
+
+  </div>
+</div>
+
+<div class="form-informations">
+  <div>
+    Le formulaire est-il soumis ? {{myForm.submitted}}
+  </div>
+  <div>
+    Le formulaire est-il valide ? {{myForm.valid}}
+  </div>
+  <div>
+    Le formulaire est-il Invalide ? {{myForm.invalid}}
+  </div>
+</div>
+
+@if(login){
+  <div class="popup">
+    <p>Login validé !</p>
+  </div>
+}
